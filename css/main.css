@@ -75,9 +75,17 @@ html{
     background-blend-mode: saturation;
 }
 
+.centrar{
+    position: relative;
+    width: auto;
+    height: auto;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .profile{
     position: relative;
-    max-height: 500px;
+    max-height: 450px;
     height: auto;
     width: auto;
 }

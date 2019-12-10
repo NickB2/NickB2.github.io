@@ -24,7 +24,8 @@
             <span class="fas fa-arrow-alt-circle-up boton-scroll"></span>
         </a>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="top" style="background-color: rgb(100,190,224) !important">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="top"
+        style="background-color: rgb(100,190,224) !important">
         <a href="#" class="navbar-brand"><img src="data/brand.png" alt="html5" style="height: 30px;"></a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
             aria-controls="navbar">
@@ -33,9 +34,11 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li><a class="nav-link" href="#top"><span class="fas fa-home"></span> Inicio</a></li>
-                <li><a class="nav-link" href="#anclajeSomos"><span class="fas fa-user"></span> Acerca de Nostros</a></li>
+                <li><a class="nav-link" href="#anclajeSomos"><span class="fas fa-user"></span> Acerca de Nostros</a>
+                </li>
                 <li><a class="nav-link" href="#anclajeGaleria"><span class="fas fa-images"></span> Galeria</a></li>
-                <li><a class="nav-link" href="#anclajeContacto"><span class="fas fa-address-book"></span> Contacto</a></li>
+                <li><a class="nav-link" href="#anclajeContacto"><span class="fas fa-address-book"></span> Contacto</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -52,7 +55,7 @@
         <h1>Acerca de Nosotros</h1>
         <br>
         <div class="row">
-            <div class="col-sm" style="text-align: justify;">
+            <div class="col-md-7" style="text-align: justify;">
                 <p>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati eos doloribus nisi voluptatum
                     minus
@@ -83,19 +86,17 @@
                     corporis fugiat voluptas, ipsum ab sed dolorem voluptates.
                 </p>
             </div>
-            <div class="col-sm" style="text-align: center; max-width: 40%;">
-                <img src="data/profile.jpeg" alt="" class="profile rounded-circle">
-                <br>
-                <br>
-                <br>
-                <h3>Juan, Perez</h3>
+            <div class="col-md-5">
+                <img src="data/profile.jpeg" alt="" class="profile rounded-lg centrar">
+                <br><br>
+                <h3 class="centrar" style="text-align: center;">Juan, Perez</h3>
             </div>
         </div>
 
     </div>
     <!-- Seccion de galeria -->
     <div class="container-fluid seccion" id="galeria">
-            <div class="anclaje" id="anclajeGaleria"></div>
+        <div class="anclaje" id="anclajeGaleria"></div>
         <h1>Galeria</h1>
         <div class="carousel slide rounded-lg" id="carouselPrueba" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -197,7 +198,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail">E-mail:</label>
-                                <input id="id_inputEmail" type="text" class="form-control" placeholder="ejemplo@email.com">
+                                <input id="id_inputEmail" type="text" class="form-control"
+                                    placeholder="ejemplo@email.com">
                                 <div class="valid-feedback">
                                     Todo bien por aquí!
                                 </div>
@@ -217,7 +219,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputMensaje">Mensaje:</label>
-                                <textarea name="" id="id_inputMensaje" cols="30" rows="8" class="form-control"></textarea>
+                                <textarea name="" id="id_inputMensaje" cols="30" rows="8"
+                                    class="form-control"></textarea>
                                 <div class="valid-feedback">
                                     Todo bien por aquí!
                                 </div>
@@ -225,7 +228,8 @@
                                     Por favor, introduzca un mensaje válido
                                 </div>
                             </div>
-                            <button type="button" onclick="validar()" class="btn btn-primary botonEnviar">Enviar</button>
+                            <button type="button" onclick="validar()"
+                                class="btn btn-primary botonEnviar">Enviar</button>
                         </form>
                     </p>
                 </div>
@@ -255,4 +259,5 @@
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOAnh8dWHwOTGk3N_s5JIpyf2l_27G5U8&callback=myMap">
 </script>
+
 </html>
