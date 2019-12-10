@@ -76,40 +76,18 @@ function validar(){
             }
         }
         if(estadoTelefono == 1){
-            $.ajax({
-                url: 'controlador/contacto.php',
-                type: 'POST',
-                data: datos,
-                success: function(response){
-                    if(response == '200'){
-                        Swal.fire({
-                            icon: 'success',
-                            text:   'Tus dudas y consultas son importantes para nostros, '+
-                                    'nos pondremos en contacto contigo en cuanto podamos'
-                        }).then(function(){
-                            $('#id_formConsulta').trigger('reset')
-                            desvalidarEstilo('id_inputNombre');
-                            desvalidarEstilo('id_inputApellido');
-                            desvalidarEstilo('id_inputTelefono');
-                            desvalidarEstilo('id_inputEmail');
-                            desvalidarEstilo('id_inputAsunto');
-                            desvalidarEstilo('id_inputMensaje');
-                        })
-                    } else if (response == '500'){
-                        Swal.fire({
-                            icon: 'error',
-                            text:   'Hubo un error al enviar la consulta'
-                        }).then(function(){
-                            $('#id_formConsulta').trigger('reset')
-                            desvalidarEstilo('id_inputNombre');
-                            desvalidarEstilo('id_inputApellido');
-                            desvalidarEstilo('id_inputTelefono');
-                            desvalidarEstilo('id_inputEmail');
-                            desvalidarEstilo('id_inputAsunto');
-                            desvalidarEstilo('id_inputMensaje');
-                        })
-                    }
-                }
+            Swal.fire({
+                icon: 'success',
+                text:   'Tus dudas y consultas son importantes para nostros, '+
+                        'nos pondremos en contacto contigo en cuanto podamos'
+            }).then(function(){
+                $('#id_formConsulta').trigger('reset')
+                desvalidarEstilo('id_inputNombre');
+                desvalidarEstilo('id_inputApellido');
+                desvalidarEstilo('id_inputTelefono');
+                desvalidarEstilo('id_inputEmail');
+                desvalidarEstilo('id_inputAsunto');
+                desvalidarEstilo('id_inputMensaje');
             })
         }
     }
