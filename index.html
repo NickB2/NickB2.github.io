@@ -253,28 +253,6 @@
         </div>
     </div>
 </body>
-<script>
-    function enviar() {
-        $.ajax({
-            url: 'controlador/contacto.php',
-            type: 'POST',
-            data: {
-                'nombre': $('#id_nombre').val(),
-                'apellido': $('#id_apellido').val(),
-                'telefono': $('#id_telefono').val(),
-                'email': $('#id_email').val(),
-                'asunto': $('#id_asunto').val(),
-                'mensaje': $('#id_mensaje').val(),
-            },
-            success: function (data) {
-                if (data == '200') {
-                    $("#modalContacto").modal('show');
-                    $('[id^=id_]').val('');
-                }
-            }
-        })
-    }
-</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOAnh8dWHwOTGk3N_s5JIpyf2l_27G5U8&callback=myMap">
 </script>
 </html>
