@@ -19,12 +19,7 @@
 </head>
 
 <body id="top">
-    <div>
-        <a href="#top">
-            <span class="fas fa-arrow-alt-circle-up boton-scroll"></span>
-        </a>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="top"
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top"
         style="background-color: rgb(100,190,224) !important">
         <button onclick="scrollear('top')" class="navbar-brand btn btn-link">
             <img src="data/brand.png" alt="html5" style="height: 30px;">
@@ -59,19 +54,18 @@
         </div>
     </nav>
     <!-- Seccion de Inicio (imagen y logo) -->
-    <div class="container-fluid seccion" id="inicio" style="padding: 0; height: 600px;">
+    <div class="container-fluid p-0 mb-4" style="height: 600px;">
         <div class="bg-imagen">
             <br>
             <img class="logo-inicio" src="data/brand3.png" alt="Logo2">
         </div>
     </div>
     <!-- Seccion Acerca de Nosotros -->
-    <div class="container-fluid" id="somos">
+    <div class="container-fluid mb-4">
         <div class="anclaje" id="anclajeSomos"></div>
         <h1>Acerca de Nosotros</h1>
-        <br>
         <div class="row">
-            <div class="col-lg-8" style="text-align: justify;">
+            <div class="col-lg-9" style="text-align: justify;">
                 <p>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati eos doloribus nisi voluptatum
                     minus
@@ -102,16 +96,16 @@
                     corporis fugiat voluptas, ipsum ab sed dolorem voluptates.
                 </p>
             </div>
-            <div class="col-lg-4">
-                <img src="data/profile.jpeg" alt="" class="profile rounded-lg centrar">
+            <div class="col-lg-3 text-center">
+                <img src="data/profile2.jpeg" alt="" class="img-fluid rounded-lg">
                 <br><br>
-                <h3 class="centrar" style="text-align: center;">Juan, Perez</h3>
+                <h3>Juan, Perez</h3>
             </div>
         </div>
 
     </div>
     <!-- Seccion de galeria -->
-    <div class="container-fluid seccion" id="galeria">
+    <div class="container-fluid mb-4">
         <div class="anclaje" id="anclajeGaleria"></div>
         <h1>Galeria</h1>
         <div class="carousel slide rounded-lg" id="carouselPrueba" data-ride="carousel">
@@ -140,7 +134,7 @@
         </div>
     </div>
     <!-- Seccion de contacto -->
-    <div class="container-fluid contacto" id="contacto">
+    <div class="container-fluid mb-4">
         <div class="anclaje" id="anclajeContacto"></div>
         <h1>Contacto</h1>
         <div class="container-fluid">
@@ -166,8 +160,7 @@
                             });
 
                             marker.setMap(map);
-                        }
-                    </script>
+                        }</script>
                 </div>
                 <div class="col-sm">
                     <br>
@@ -253,24 +246,16 @@
         </div>
 
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <p class="redesSociales">
-                <a href="#"><span class="fab fa-instagram"></span></a>
-                &nbsp;
-                <a href="#"><span class="fab fa-facebook"></span></a>
-                &nbsp;
-                <a href="#"><span class="fab fa-twitter"></span></a>
-            </p>
-        </div>
+    <div class="container-fluid text-center" id="redesSociales">
+        <a href="#"><span class="fab fa-instagram"></span></a>
+        &nbsp;
+        <a href="#"><span class="fab fa-facebook"></span></a>
+        &nbsp;
+        <a href="#"><span class="fab fa-twitter"></span></a>
     </div>
     <br>
-    <div class="container-fluid copyright">
-        <div class="row">
-            <p class="copy2">
-                Diseño: Burian Nicolas &copy; 2019.
-            </p>
-        </div>
+    <div class="container-fluid py-3 text-center" id='footer'>
+        Diseño: Burian Nicolas &copy; 2019.
     </div>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOAnh8dWHwOTGk3N_s5JIpyf2l_27G5U8&callback=myMap">
