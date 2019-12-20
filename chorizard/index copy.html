@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <form action="">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label for="inputArriba">Texto Arriba</label>
+                                <input type="text" name="inputArriba" id="inputArriba" class="form-control">
+                            </div>
+                            <div class="col-md">
+                                <label for="inputAbajo">Texto Arriba</label>
+                                <input type="text" class="form-control " id="inputAbajo" name="inputAbajo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <label for="" class="custom-file-label">Subir</label>
+                            <input type="file" name="" id="inputImagen" class="custom-file-input">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary" type="button" onclick="capturar()">Capturar</button>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="capturar">
+
+    </div>
+</body>
+<script src="js/jquery-3.4.1.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/html2canvas.js"></script>
+<script src="js/FileSaver.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#inputArriba").keyup(function () {
+            valor = $("#inputArriba").val().trim()
+            $("#textoArriba").html(valor)
+        })
+        $("#inputAbajo").keyup(function () {
+            valor = $("#inputAbajo").val().trim()
+            $("#textoAbajo").html(valor)
+        })
+        $("#inputImagen").change(function () {
+            if (typeof (FileReader) != 'undefined') {
+                var contenedorImagen = $("#capturar")
+                contenedorImagen.empty()
+
+                var lectorImagen = new FileReader()
+                lectorImagen.onload = function (e) {
+
+
+                    var iDiv = document.createElement('div')
+                    iDiv.style.backgroundImage = "url('" + e.target.result + "')"
+                    iDiv.style.backgroundRepeat = "no-repeat"
+                    iDiv.style.position = "relative"
+                    iDiv.style.backgroundSize = "auto"
+                    iDiv.style.backgroundPosition = "center"
+                    iDiv.className = "centrar"
+
+                    var imagen = new Image()
+                    imagen.src = e.target.result
+                    imagen.onload = function () {
+                        iDiv.style.height = this.height+"px"
+                        iDiv.style.width = this.width+"px"
+                    }
+                    // iDiv.style.height = "500px"
+                    // iDiv.style.width = "500px"
+                    iDiv.id = "imagenCC"
+                    $(iDiv).appendTo(contenedorImagen)
+                    console.log('creado div')
+                    $(iDiv).append("<div id='textoArriba' class='arriba'></div>")
+                    $(iDiv).append("<div id='textoAbajo' class='abajo'></div>")
+
+                }
+                contenedorImagen.show()
+                lectorImagen.readAsDataURL($(this)[0].files[0])
+
+            } else {
+                alert("Tu navegador no soporta la funcion de FileReader")
+            }
+        })
+    })
+    function capturar() {
+        html2canvas(document.querySelector("#imagenCC")).then(function (canvas) {
+            var imagenNueva = canvas;
+            imagenNueva.toBlob(function (blob) {
+                saveAs(blob, "imagen.png")
+            })
+        })
+    }
+</script>
+
+</html>

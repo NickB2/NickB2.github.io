@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="container-fluid mb-3">
+        <h1>Chorizard</h1>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="">Arriba</label>
+                            <textarea name="inputTextoArriba" id="inputTextoArriba" disabled cols="30" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="custom-file">
+                        <label for="" class="custom-file-label">Subir</label>
+                        <input type="file" name="" id="inputImagen" class="custom-file-input">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="capturar()" type="button">Guardar</button>
+            </div>
+        </div>
+    </div>
+    <div class="container mb-5" id="contenedorImagen">
+
+    </div>
+</body>
+<script src="js/jquery-3.4.1.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/html2canvas.js"></script>
+<script src="js/FileSaver.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#inputImagen").change(function () {
+            if (typeof (FileReader) != 'undefined') {
+                $("#inputTextoArriba").attr('disabled', false)
+                var contendor = $("#contenedorImagen")
+                contendor.empty()
+                var lector = new FileReader()
+                lector.onload = function (evento) {
+                    var imagen = new Image()
+                    imagen.src = evento.target.result
+                    imagen.onload = function (ev) {
+                        console.log($(window).width()* 0.8)
+                        var ancho = $(window).width()*0.7
+                        const escala = ancho/imagen.width
+                        $("<div/>",{
+                            'id': 'divImagen',
+                            'class': 'centrar p-0 m-0',
+                            'style': "width:"+ancho+"px; height: "+imagen.height*escala+"px;",
+                        }).appendTo("#contenedorImagen")
+                        $("<div />",{
+                            'id': 'textoArriba',
+                            'class': 'texto px-3'
+                        }).appendTo("#divImagen")
+                        $("<img/>", {
+                            'id': 'imagenCargada',
+                            'src': imagen.src,
+                            'class': 'centrarAbsoluto',
+                            'style': "width:"+ancho+"px; height: "+imagen.height*escala+"px; z-index:-1",
+                        }).appendTo("#divImagen")
+                        $("#textoArriba").draggable()
+                        $("#textoAbajo").draggable()
+                    }
+                }
+                contendor.show()
+                lector.readAsDataURL($(this)[0].files[0])
+            } else {
+                alert('Tu navegador no soporta FileReader')
+            }
+        })
+        $("#inputTextoArriba").keyup(function () {
+            valor = $("#inputTextoArriba").val().trim()
+            $("#textoArriba").html(valor)
+        })
+    })
+    function capturar() {
+        html2canvas(document.querySelector("#divImagen")).then(function (canvas) {
+            var imagenNueva = canvas;
+            imagenNueva.toBlob(function (blob) {
+                saveAs(blob, "imagen.png")
+            })
+        })
+    }
+</script>
+<script src="js/jquery.ui.touch-punch.min.js"></script>
+
+</html>
