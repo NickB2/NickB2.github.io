@@ -144,17 +144,14 @@
         })
     })
     function capturar() {
-        // html2canvas(document.querySelector("#divImagen")).then(function (canvas) {
-        //     var imagenNueva = canvas;
-        //     imagenNueva.toBlob(function (blob) {
-        //         saveAs(blob, "imagen.png")
-        //     })
-        // })
-        domtoimage.toBlob(document.getElementById('contenedorImagen'))
-        .then(function(blob){
-            window.saveAs(blob,'imagen.png')
+        $("html,body").scrollTop(0)
+        html2canvas(document.querySelector("#divImagen"),{'backgroundColor': null})
+        .then(function (canvas) {
+            var imagenNueva = canvas;
+            imagenNueva.toBlob(function (blob) {
+                saveAs(blob, "imagen.png")
+            })
         })
-        
     }
 </script>
 <script src="js/jquery.ui.touch-punch.min.js"></script>
