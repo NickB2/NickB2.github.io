@@ -5,50 +5,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Editor</title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/colorPick.css">
+    <link rel="stylesheet" href="css/colorPick.dark.theme.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <div class="container-fluid mb-3">
-        <h1>Chorizard</h1>
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="col">
-                            <label for="">Arriba</label>
-                            <textarea name="inputTextoArriba" id="inputTextoArriba" disabled cols="30" rows="3" class="form-control"></textarea>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-lg-3 bg-dark text-light">
+                <h1>Editor</h1>
+                <form action="">
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <input type="file" id="inputImagen" class="custom-file-input">
+                            <label for="inputImagen" class="custom-file-label">Subir una imagen</label>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="custom-file">
-                        <label for="" class="custom-file-label">Subir</label>
-                        <input type="file" name="" id="inputImagen" class="custom-file-input">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="">Texto</label>
+                                <textarea name="inputTextoArriba" id="inputTextoArriba" disabled cols="30" rows="3"
+                                    class="form-control"></textarea>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <button class="btn btn-primary" onclick="capturar()" type="button">Guardar</button>
+                    <div class="form-group">
+                        <label for="textSize">Tamaño del texto</label>
+                        <input disabled type="range" name="textSize" id="textSize" class="custom-range" step="0.2"
+                            min="3" max="6">
+                    </div>
+                    <div class="form-group" id='colorPicker'>
+                        <label>Color del texto</label>
+                        <div class="colorPickSelector"></div>
+                    </div>
+                    <button class="btn btn-primary" onclick="capturar()" type="button">Guardar</button>
+                </form>
+                <br>
+            </div>
+            <div class="col-lg-9 p-2" id="contenedorImagen">
+
             </div>
         </div>
-    </div>
-    <div class="container mb-5" id="contenedorImagen">
-
     </div>
 </body>
 <script src="js/jquery-3.4.1.js"></script>
 <script src="js/jquery-ui.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/html2canvas.js"></script>
+<script src="js/dom-to-image.min.js"></script>
 <script src="js/FileSaver.js"></script>
+<script src="js/colorPick.js"></script>
+
 <script>
     $(document).ready(function () {
+        $("#colorPicker").css('display', 'none')
+        $(".colorPickSelector").colorPick({
+            'initialColor': '#ffffff',
+            'allowRecent': false,
+            'palette': [    "#ffffff",
+                            "#cecece",
+                            "#9b9b9b",
+                            "#606060",
+                            "#2b2b2b",
+                            "#000000"],
+            'paletteLabel': 'Colores',
+            'onColorSelected': function () {
+                this.element.css({ 'backgroundColor': this.color, 'color': this.color });
+                $('#textoArriba').css('color',this.color)
+            }
+        })
         $("#inputImagen").change(function () {
             if (typeof (FileReader) != 'undefined') {
                 $("#inputTextoArriba").attr('disabled', false)
+                $("#textSize").attr('disabled', false)
                 var contendor = $("#contenedorImagen")
                 contendor.empty()
                 var lector = new FileReader()
@@ -56,15 +91,17 @@
                     var imagen = new Image()
                     imagen.src = evento.target.result
                     imagen.onload = function (ev) {
-                        console.log($(window).width()* 0.8)
-                        var ancho = $(window).width()*0.7
-                        const escala = ancho/imagen.width
-                        $("<div/>",{
+                        // var ancho = $(window).width() * 0.7
+                        var ancho = $("#contenedorImagen").width() * 0.8
+                        console.log('Ancho del div e imagen: '+ancho)
+                        const escala = ancho / imagen.width
+                        console.log('Escala del div e imagen: '+escala)
+                        $("<div/>", {
                             'id': 'divImagen',
-                            'class': 'centrar p-0 m-0',
-                            'style': "width:"+ancho+"px; height: "+imagen.height*escala+"px;",
+                            'class': 'centrar p-0 m-0 overflow-hidden',
+                            'style': "width:" + ancho + "px; height: " + imagen.height * escala + "px;",
                         }).appendTo("#contenedorImagen")
-                        $("<div />",{
+                        $("<div />", {
                             'id': 'textoArriba',
                             'class': 'texto px-3'
                         }).appendTo("#divImagen")
@@ -72,10 +109,11 @@
                             'id': 'imagenCargada',
                             'src': imagen.src,
                             'class': 'centrarAbsoluto',
-                            'style': "width:"+ancho+"px; height: "+imagen.height*escala+"px; z-index:-1",
+                            'style': "width:" + ancho + "px; height: " + imagen.height * escala + "px; z-index:0",
                         }).appendTo("#divImagen")
                         $("#textoArriba").draggable()
                         $("#textoAbajo").draggable()
+                        $("#colorPicker").css('display', 'block')
                     }
                 }
                 contendor.show()
@@ -88,14 +126,35 @@
             valor = $("#inputTextoArriba").val().trim()
             $("#textoArriba").html(valor)
         })
+        $("#textSize").change(function () {
+            var nuevoValor = $("#textSize").val()
+            console.log(nuevoValor)
+            $("#textoArriba").css('font-size', nuevoValor + 'vw')
+        })
+        $(window).resize(function(){
+            if(document.getElementById("divImagen")){
+                var nuevoAncho = $("#contenedorImagen").width() * 0.8
+                var nuevaEscala = nuevoAncho / $("#divImagen").width()
+                var nuevaAltura = $("#divImagen").height() * nuevaEscala
+                $("#divImagen").css('width',nuevoAncho+'px')
+                $("#imagenCargada").css('width',nuevoAncho+'px')
+                $("#divImagen").css('height',nuevaAltura+'px')
+                $("#imagenCargada").css('height',nuevaAltura+'px')
+            }
+        })
     })
     function capturar() {
-        html2canvas(document.querySelector("#divImagen")).then(function (canvas) {
-            var imagenNueva = canvas;
-            imagenNueva.toBlob(function (blob) {
-                saveAs(blob, "imagen.png")
-            })
+        // html2canvas(document.querySelector("#divImagen")).then(function (canvas) {
+        //     var imagenNueva = canvas;
+        //     imagenNueva.toBlob(function (blob) {
+        //         saveAs(blob, "imagen.png")
+        //     })
+        // })
+        domtoimage.toBlob(document.getElementById('contenedorImagen'))
+        .then(function(blob){
+            window.saveAs(blob,'imagen.png')
         })
+        
     }
 </script>
 <script src="js/jquery.ui.touch-punch.min.js"></script>
